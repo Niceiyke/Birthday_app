@@ -16,7 +16,10 @@
             "src": "/(.*)",
             "dest": "birthday_app/wsgi.py"
           }
-    ]
+    ],
+    "hooks": {
+      "postdeploy": "bash create_superuser.sh"
+    }
   
   }
   
