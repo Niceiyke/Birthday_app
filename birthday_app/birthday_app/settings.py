@@ -114,7 +114,7 @@ MEDIA_ROOT =BASE_DIR / 'media'
 
 STATIC_URL = '/static/'  # This should be defined to avoid the error
 STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this is a list
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "static/staticfiles"
 
 
 # Default primary key field type
