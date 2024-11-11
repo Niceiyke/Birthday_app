@@ -9,3 +9,6 @@ urlpatterns = [
     path('birthday/', include('birthday.urls')),  # Use a distinct path for birthday app
     path('api/', include('api.urls')),  # Configure api paths at /api/
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
