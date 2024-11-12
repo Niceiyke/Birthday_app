@@ -5,8 +5,8 @@ from .models import Worker, AdminSettings, Music,SideImage
 
 @admin.register(Worker)
 class WorkerAdmin(admin.ModelAdmin):
-    list_display = ('first_name',)
-
+    list_display = ('name',)
+    search_fields = ('name', 'sap')
 @admin.register(AdminSettings)
 class AdminSettingsAdmin(admin.ModelAdmin):
     list_display = ('background_image',)

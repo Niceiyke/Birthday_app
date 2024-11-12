@@ -3,13 +3,16 @@
 from django.db import models
 
 class Worker(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name= models.CharField(max_length=100)
-    email = models.EmailField(max_length=100,primary_key=True)
+    name = models.CharField(max_length=100)
+    position= models.CharField(max_length=100)
+    sap = models.CharField(max_length=12,primary_key=True)
     birthday = models.DateField()
     department= models.CharField(max_length=50)
     picture = models.ImageField(upload_to='workers/')
-    background_music = models.FileField(upload_to='music/', blank=True, null=True)
+    gender=models.CharField(max_length=10)
+    location=models.CharField(max_length=20,default='Ama')
+    cader=models.CharField(max_length=100)
+
     
 
 class AdminSettings(models.Model):

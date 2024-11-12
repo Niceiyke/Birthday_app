@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3w2-(+awy9b*sv#&7-(r^7eo)10&hc0jy3ycv!fy*#zzb1ae$u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','localhost:5137']
+ALLOWED_HOSTS = ['.vercel.app','localhost:5137','127.0.0.1']
 
 # Application definition
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'birthday',
     'api',
@@ -35,6 +36,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -92,6 +94,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage", 
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -114,7 +125,7 @@ MEDIA_ROOT =BASE_DIR / 'media'
 
 STATIC_URL = '/static/'  # This should be defined to avoid the error
 STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this is a list
-STATIC_ROOT = BASE_DIR / "static/staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Default primary key field type
