@@ -1,8 +1,13 @@
 # views.py
 
 from django.shortcuts import render
-from .models import Worker, AdminSettings,SideImage
+from .models import Worker,SideImage
 
+
+from django.shortcuts import render
+from datetime import datetime
+from .models import Worker, SideImage, AdminSettings
+from django.db.models import functions
 
 from django.shortcuts import render
 from datetime import datetime
@@ -12,8 +17,8 @@ def monthly_birthdays(request):
     # Get current month
     current_month = datetime.now().month
     
-    # Filter workers whose birthday is in the current month
-    workers = Worker.objects.filter(birthday__month=current_month)
+    # Filter workers whose birthday is in the current month and order by the day of the month
+    workers = Worker.objects.filter(birthday__month=current_month).order_by(functions.ExtractDay('birthday'))
     
     # Get all side images and admin settings
     slide_images = SideImage.objects.all()
@@ -27,7 +32,6 @@ def monthly_birthdays(request):
     }
     
     return render(request, 'birthdays/home.html', context)
-
 
 
 # views.py
