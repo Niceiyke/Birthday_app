@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{% if worker %}Update{% else %}Create{% endif %} Worker</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    
+    {% if worker and worker.picture %}
+      <p>Current Picture:</p>
+      <img src="{{ worker.picture.url }}" alt="{{ worker.name }}'s picture" width="150">
+    {% endif %}
+    
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

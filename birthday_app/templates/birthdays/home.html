@@ -1,155 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slideshow with Music</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday App</title>
     {% load static %}
-   
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-        /* Custom CSS */
-        body {
-            background-color: #0f0f0f;
-        }
+      /* Custom CSS */
+      body {
+        background-color: #0f0f0f;
+      }
 
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-        }
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+      }
 
-        .left-image {
-            max-height: 100%;
-            max-width: 100%;
-            border-radius: 10px;
-        }
+      .left-image {
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+      }
 
-        .right-image {
-            border-radius: 20px;
-            height: 80vh;
-            margin-right: 140px;
-        }
+      .right-image {
+        border-radius: 20px;
+        max-width: 100%;
+        height: 95vh;
+        margin-right: 140px;
+      }
 
-        .worker-info {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 10px;
-            width: 100%;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
+      .worker-info {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 10px;
+        width: 100%;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
 
-        #playMusicBtn {
-            font-weight: bold;
-            border-radius: 50px;
-            padding: 10px 20px;
-        }
+      #playMusicBtn {
+        font-weight: bold;
+        border-radius: 50px;
+        padding: 10px 20px;
+      }
 
-        #playMusicBtn.hidden {
-            display: none;
-        }
+      #playMusicBtn.hidden {
+        display: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container-fluid mt-4">
-        <div class="row gx-4">
-            <!-- Left Slideshow (1/4 of the screen) -->
-            <div class="col-md-5">
-                <div id="left-slideshow" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for image in slide_images %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <img src="{{ image.file.url }}" class="left-image" alt="Image {{ image.id }}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#left-slideshow" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#left-slideshow" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+      <div class="row gx-4">
+        <!-- Left Slideshow (1/4 of the screen) -->
+        <div class="col-md-5">
+          <div
+            id="left-slideshow"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner">
+              {% for image in slide_images %}
+              <div
+                class="carousel-item {% if forloop.first %}active{% endif %}"
+              >
+                <img
+                  src="{{ image.file.url }}"
+                  class="left-image"
+                  alt="Image {{ image.id }}"
+                />
+              </div>
+              {% endfor %}
             </div>
-
-            <!-- Right Slideshow (3/4 of the screen) -->
-            <div class="col-md-7">
-                <div id="right-slideshow" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for worker in workers %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %} position-relative">
-                                <img src="{% if worker.picture %}{{ worker.picture.url }}{% else %}{% static 'images/male.webp' %}{% endif %}" class="d-block w-100 right-image" alt="Image {{ worker.id }}">
-
-                                <div class="worker-info text-center">
-                                    <h1>{{ worker.name }} </h1>
-                                    <h5>Department: {{ worker.department }}</h5>
-                                    <h2>Birthday: {{ worker.birthday|date:"d F" }}</h2>
-                                </div>
-                                
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#right-slideshow" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#right-slideshow" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#left-slideshow"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#left-slideshow"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Play Music Button -->
-        <div class="text-center mt-4">
-            <button id="playMusicBtn" class="btn btn-outline-primary">Play Background Music</button>
-        </div>
+        <!-- Right Slideshow (3/4 of the screen) -->
+        <div class="col-md-7">
+          <div
+            id="right-slideshow"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner">
+              {% for worker in workers %}
+              <div
+                class="carousel-item {% if forloop.first %}active{% endif %} position-relative"
+              >
+                <img
+                  src="{% if worker.picture %}{{ worker.picture.url }}{% else %}{% static 'images/male.webp' %}{% endif %}"
+                  class="d-block w-100 right-image"
+                  alt="Image {{ worker.id }}"
+                />
 
-        <!-- Music Player -->
-        <audio id="backgroundMusic"></audio>
+                <div class="worker-info text-center">
+                  <h1>{{ worker.name }}</h1>
+                  <h5>Department: {{ worker.department }}</h5>
+                  <h2>Birthday: {{ worker.birthday|date:"d F" }}</h2>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#right-slideshow"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#right-slideshow"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Play Music Button -->
+      <div class="text-center mt-4">
+        <button id="playMusicBtn" class="btn btn-outline-primary">
+          Play Background Music
+        </button>
+      </div>
+
+      <!-- Music Player -->
+      <audio id="backgroundMusic"></audio>
     </div>
 
     <!-- Bootstrap and Custom JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        async function fetchMusicUrls() {
-            const response = await fetch('/get-music-urls');
-            const data = await response.json();
-            return data.music_urls;
-        }
+      async function fetchMusicUrls() {
+        const response = await fetch("/get-music-urls");
+        const data = await response.json();
+        return data.music_urls;
+      }
 
-        document.getElementById('playMusicBtn').addEventListener('click', async function() {
-            const musicUrls = await fetchMusicUrls();
+      document
+        .getElementById("playMusicBtn")
+        .addEventListener("click", async function () {
+          const musicUrls = await fetchMusicUrls();
 
-            let currentTrack = 0;
-            const audio = document.getElementById('backgroundMusic');
+          let currentTrack = 0;
+          const audio = document.getElementById("backgroundMusic");
 
-            function playNextTrack() {
-                if (currentTrack >= musicUrls.length) {
-                    currentTrack = 0;
-                }
-                audio.src = musicUrls[currentTrack];
-                audio.play();
-                currentTrack++;
+          function playNextTrack() {
+            if (currentTrack >= musicUrls.length) {
+              currentTrack = 0;
             }
+            audio.src = musicUrls[currentTrack];
+            audio.play();
+            currentTrack++;
+          }
 
-            audio.addEventListener('ended', playNextTrack);
+          audio.addEventListener("ended", playNextTrack);
 
-            if (audio.paused) {
-                playNextTrack();
-                this.style.display = 'none';
-            } else {
-                audio.pause();
-                this.style.display = 'block';
-            }
+          if (audio.paused) {
+            playNextTrack();
+            this.style.display = "none";
+          } else {
+            audio.pause();
+            this.style.display = "block";
+          }
         });
     </script>
-</body>
+  </body>
 </html>

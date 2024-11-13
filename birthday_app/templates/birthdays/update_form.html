@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Update Picture for {{ worker.name }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="id_picture">New Picture:</label>
+    {{ form.picture }}
+
+    {% if worker.picture %}
+      <p>Current Picture:</p>
+      <img src="{{ worker.picture.url }}" alt="{{ worker.name }}'s current picture" width="150">
+    {% endif %}
+    
+    <button type="submit">Update Picture</button>
+  </form>
+{% endblock %}
