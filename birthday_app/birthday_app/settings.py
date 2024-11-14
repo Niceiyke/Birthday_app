@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-3w2-(+awy9b*sv#&7-(r^7eo)10&hc0jy3ycv!fy*#zzb1ae$u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','localhost:5137','127.0.0.1','10.250.62.179']
+ALLOWED_HOSTS = ['.vercel.app','localhost:5137','127.0.0.1','10.250.62.99']
 
 # Application definition
 
@@ -27,14 +27,10 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'birthday',
-    'api',
-    'corsheaders',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -133,7 +129,4 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Cors Headers
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # Allow requests from your frontend's local server
-]
+

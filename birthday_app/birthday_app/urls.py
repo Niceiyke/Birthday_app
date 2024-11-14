@@ -7,7 +7,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('birthday.urls')),  # Use a distinct path for birthday app
-    path('api/', include('api.urls')),  # Configure api paths at /api/
+
 ]
 
 if settings.DEBUG:
